@@ -37,6 +37,10 @@ dbConnect()
         });
     })
     .catch((error) => {
+        // Si la conexión falla, mostramos el aviso (y el motivo original, guardado en "cause")
+        // en la consola del servidor, nunca en una respuesta HTTP.
         console.error(error.message, error.cause?.message ?? '');
+        // process.exit(1): terminar con código 1 significa "terminó con error". Así Render
+        // (o quien lance el servidor) sabe que algo falló y no cree que está funcionando.
         process.exit(1);
     });

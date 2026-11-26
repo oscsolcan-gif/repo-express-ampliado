@@ -5,8 +5,9 @@
 import mongoose from 'mongoose';
 
 const servicioSchema = new mongoose.Schema({
-    nombre: { type: String, required: true },
-    descripcion: { type: String, required: true },
+    // trim: true quita los espacios de los extremos; así "   " queda vacío y "required" lo rechaza
+    nombre: { type: String, required: true, trim: true },
+    descripcion: { type: String, required: true, trim: true },
     precio: { type: Number, required: true }
 });
 
