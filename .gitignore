@@ -1,0 +1,11 @@
+# Paquetes de npm (pesan mucho y se recuperan con "npm install")
+node_modules/
+
+# Variables de entorno: aquí viven la URI de la base de datos y, en producción, su clave.
+# NUNCA se suben a GitHub. Solo se sube .env.template (sin valores reales).
+.env
+.env.*
+!.env.template
+
+# Registros
+*.log
