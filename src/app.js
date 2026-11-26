@@ -1,8 +1,8 @@
 // SERVIDOR: carga la configuración, conecta con la base de datos, monta las rutas y escucha.
 
 // 1. Primero cargamos las variables del .env (así lo indica el LEEME de dotenv)
-import 'dotenv/config';
 import express from 'express';
+import 'dotenv/config';
 import helmet from 'helmet';
 // 2. Primero los paquetes externos, después los nuestros (convención, no regla del lenguaje)
 import serviciosRoutes from './routes/serviciosRoutes.js';
@@ -23,18 +23,11 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// 6. Rutas, todas bajo el prefijo /api/v1
-app.use('/api/v1', serviciosRoutes);
-app.use('/api/v1', productosRoutes);
-
 // 7. Primero la base de datos; solo si conecta, abrimos la puerta del servidor.
 //    Si no conecta, avisamos y paramos: un servidor sin base de datos no sirve de nada.
 dbConnect()
     .then((mensaje) => {
         console.log(mensaje);
-        app.listen(port, () => {
-            console.log(`Servidor a la escucha del puerto ${port}`);
-        });
     })
     .catch((error) => {
         // Si la conexión falla, mostramos el aviso (y el motivo original, guardado en "cause")
@@ -44,3 +37,12 @@ dbConnect()
         // (o quien lance el servidor) sabe que algo falló y no cree que está funcionando.
         process.exit(1);
     });
+
+// 6. Rutas, todas bajo el prefijo /api/v1
+app.use('/api/v1', serviciosRoutes);
+//app.use('/api/v1', productosRoutes); 
+
+
+app.listen(port, () => {
+            console.log(`Servidor a la escucha del puerto ${port}`);
+        });

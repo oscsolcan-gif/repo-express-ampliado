@@ -1,16 +1,16 @@
 # API REST de servicios y productos (Node.js, Express y MongoDB con Mongoose)
 
-API REST básica para gestionar **servicios** (CRUD completo) y **productos** (listado). Práctica del bootcamp Full Stack. Rutas separadas, controladores con el patrón visto en clase y datos guardados en MongoDB con Mongoose.
+API REST básica para gestionar **servicios** (CRUD completo). La parte de **productos** (modelo, controlador y ruta de listado) existe pero está **desactivada** en `app.js` hasta que el enunciado la pida. Práctica del bootcamp Full Stack. Rutas separadas, controladores con el patrón visto en clase y datos guardados en MongoDB con Mongoose.
 
 ## Puesta en marcha
 
 1. Clonar el repositorio y entrar en la carpeta.
 2. Instalar los paquetes: `npm install`
-3. Copiar `.env.template` como `.env` y poner tus valores (el `.env` no se sube a GitHub).
+3. Copiar `.env.template` como `.env` y **rellenar** `PORT` y `URI` (el `.env` no se sube a GitHub). La plantilla va sin valores a propósito: si `URI` se queda vacía, la API no arranca y avisa «No hay conexión». En desarrollo: `URI=mongodb://127.0.0.1:27017/express_ampliado`.
 4. Tener MongoDB encendido. En local, con Docker: `docker start some-mongo` (o crearlo con `docker run --name some-mongo -d -p 127.0.0.1:27017:27017 -v mongodatos:/data/db mongo`).
 5. Arrancar: `npm start` (o `npm run dev` si tienes `nodemon`).
 
-Si todo va bien, la consola dice **«Conectado a la bbdd»** y **«Servidor a la escucha del puerto 3000»**.
+Si todo va bien, la consola dice **«Servidor a la escucha del puerto 3000»** y justo después **«Conectado a la bbdd»**: el servidor abre el puerto sin esperar a la base (como en clase). Si la base no responde, las peticiones contestan 500 y el proceso termina con código 1 cuando Mongoose deja de intentarlo.
 
 ## Estructura
 
@@ -41,7 +41,7 @@ La base de **desarrollo** (local) y la de **producción** (Atlas) son distintas.
 | POST | `/api/v1/servicios` | `createAService` | 201 · 400 (faltan datos o tipo incorrecto) · 500 |
 | PUT | `/api/v1/servicios/:id` | `updateAServiceById` | 200 · 400 · 404 · 500 |
 | DELETE | `/api/v1/servicios/:id` | `deleteAServiceById` | 200 · 400 · 404 · 500 |
-| GET | `/api/v1/productos` | `getAllProducts` | 200 (array) · 500 |
+| GET | `/api/v1/productos` | `getAllProducts` | **Desactivada** en `app.js` (hoy da 404). Al activarla: 200 (array) · 500 |
 
 Todas las respuestas son JSON con `ok` (`true` o `false`) y `msg`.
 
